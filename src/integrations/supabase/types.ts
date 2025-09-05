@@ -16,73 +16,73 @@ export type Database = {
     Tables: {
       admin_users: {
         Row: {
-          created_at: string | null
+          created_at: string
           email: string
           id: string
           name: string | null
           password_hash: string
-          role: string | null
-          updated_at: string | null
+          role: string
+          updated_at: string
         }
         Insert: {
-          created_at?: string | null
+          created_at?: string
           email: string
           id?: string
           name?: string | null
           password_hash: string
-          role?: string | null
-          updated_at?: string | null
+          role?: string
+          updated_at?: string
         }
         Update: {
-          created_at?: string | null
+          created_at?: string
           email?: string
           id?: string
           name?: string | null
           password_hash?: string
-          role?: string | null
-          updated_at?: string | null
+          role?: string
+          updated_at?: string
         }
         Relationships: []
       }
       applicants: {
         Row: {
-          applied_at: string | null
+          applied_at: string
           cover_letter: string | null
           email: string
           id: string
-          job_id: string | null
+          job_id: string
           name: string
           notes: string | null
           phone: string | null
           resume_url: string
-          status: string | null
-          updated_at: string | null
+          status: string
+          updated_at: string
         }
         Insert: {
-          applied_at?: string | null
+          applied_at?: string
           cover_letter?: string | null
           email: string
           id?: string
-          job_id?: string | null
+          job_id: string
           name: string
           notes?: string | null
           phone?: string | null
           resume_url: string
-          status?: string | null
-          updated_at?: string | null
+          status?: string
+          updated_at?: string
         }
         Update: {
-          applied_at?: string | null
+          applied_at?: string
           cover_letter?: string | null
           email?: string
           id?: string
-          job_id?: string | null
+          job_id?: string
           name?: string
           notes?: string | null
           phone?: string | null
           resume_url?: string
-          status?: string | null
-          updated_at?: string | null
+          status?: string
+          updated_at?: string
         }
         Relationships: [
           {
@@ -96,55 +96,55 @@ export type Database = {
       }
       job_postings: {
         Row: {
-          created_at: string | null
+          created_at: string
           deadline: string
           department: string
           description: string
           experience: string
           id: string
-          is_visible: boolean | null
+          is_visible: boolean
           location: string
           requirements: string
           responsibilities: string
           salary: string | null
-          status: string | null
+          status: string
           title: string
           type: string
-          updated_at: string | null
+          updated_at: string
         }
         Insert: {
-          created_at?: string | null
+          created_at?: string
           deadline: string
           department: string
           description: string
           experience: string
           id?: string
-          is_visible?: boolean | null
+          is_visible?: boolean
           location: string
           requirements: string
           responsibilities: string
           salary?: string | null
-          status?: string | null
+          status?: string
           title: string
           type: string
-          updated_at?: string | null
+          updated_at?: string
         }
         Update: {
-          created_at?: string | null
+          created_at?: string
           deadline?: string
           department?: string
           description?: string
           experience?: string
           id?: string
-          is_visible?: boolean | null
+          is_visible?: boolean
           location?: string
           requirements?: string
           responsibilities?: string
           salary?: string | null
-          status?: string | null
+          status?: string
           title?: string
           type?: string
-          updated_at?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
@@ -153,10 +153,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      is_admin_or_recruiter: {
-        Args: Record<PropertyKey, never>
-        Returns: boolean
-      }
+      [_ in never]: never
     }
     Enums: {
       [_ in never]: never
