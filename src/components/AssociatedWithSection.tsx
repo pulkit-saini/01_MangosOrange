@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const partnersData = [
@@ -50,164 +50,9 @@ const partnersData = [
 ];
 
 const AssociatedWithSection = () => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const isDragging = useRef(false);
-  const startX = useRef(0);
-  const scrollLeft = useRef(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const [currentSection, setCurrentSection] = useState(0);
-  const [totalSections, setTotalSections] = useState(0);
   const { ref: sectionRef, isVisible } = useScrollAnimation();
 
-  // Drag to scroll functionality
-  useEffect(() => {
-    const slider = scrollRef.current;
-    if (!slider) return;
-
-    const onMouseDown = (e: MouseEvent) => {
-      e.preventDefault();
-      isDragging.current = true;
-      slider.style.cursor = 'grabbing';
-      startX.current = e.pageX - slider.offsetLeft;
-      scrollLeft.current = slider.scrollLeft;
-      setIsPaused(true);
-    };
-
-    const onMouseLeave = () => {
-      isDragging.current = false;
-      slider.style.cursor = 'grab';
-      setIsPaused(false);
-    };
-
-    const onMouseUp = () => {
-      isDragging.current = false;
-      slider.style.cursor = 'grab';
-      setIsPaused(false);
-    };
-
-    const onMouseMove = (e: MouseEvent) => {
-      if (!isDragging.current) return;
-      e.preventDefault();
-      const x = e.pageX - slider.offsetLeft;
-      const walk = (x - startX.current) * 2;
-      slider.scrollLeft = scrollLeft.current - walk;
-    };
-
-    // Touch events for mobile
-    const onTouchStart = (e: TouchEvent) => {
-      isDragging.current = true;
-      startX.current = e.touches[0].pageX - slider.offsetLeft;
-      scrollLeft.current = slider.scrollLeft;
-      setIsPaused(true);
-    };
-
-    const onTouchEnd = () => {
-      isDragging.current = false;
-      setIsPaused(false);
-    };
-
-    const onTouchMove = (e: TouchEvent) => {
-      if (!isDragging.current) return;
-      const x = e.touches[0].pageX - slider.offsetLeft;
-      const walk = (x - startX.current) * 2;
-      slider.scrollLeft = scrollLeft.current - walk;
-    };
-
-    slider.addEventListener("mousedown", onMouseDown);
-    slider.addEventListener("mouseleave", onMouseLeave);
-    slider.addEventListener("mouseup", onMouseUp);
-    slider.addEventListener("mousemove", onMouseMove);
-    slider.addEventListener("touchstart", onTouchStart);
-    slider.addEventListener("touchend", onTouchEnd);
-    slider.addEventListener("touchmove", onTouchMove);
-
-    return () => {
-      slider.removeEventListener("mousedown", onMouseDown);
-      slider.removeEventListener("mouseleave", onMouseLeave);
-      slider.removeEventListener("mouseup", onMouseUp);
-      slider.removeEventListener("mousemove", onMouseMove);
-      slider.removeEventListener("touchstart", onTouchStart);
-      slider.removeEventListener("touchend", onTouchEnd);
-      slider.removeEventListener("touchmove", onTouchMove);
-    };
-  }, []);
-
-  // Calculate sections and track scroll position
-  useEffect(() => {
-    const updateSections = () => {
-      const container = scrollRef.current;
-      if (!container) return;
-
-      const cardWidth = 256; // w-64 = 256px
-      const gap = 24; // gap-6 = 24px
-      const containerWidth = container.offsetWidth;
-      const cardsPerView = Math.floor(containerWidth / (cardWidth + gap));
-      const totalCards = partnersData.length;
-      const sections = Math.ceil(totalCards / cardsPerView);
-      setTotalSections(sections);
-    };
-
-    const handleScroll = () => {
-      const container = scrollRef.current;
-      if (!container) return;
-
-      const cardWidth = 256;
-      const gap = 24;
-      const scrollPosition = container.scrollLeft;
-      const sectionWidth = (cardWidth + gap) * Math.floor(container.offsetWidth / (cardWidth + gap));
-      const currentSec = Math.round(scrollPosition / sectionWidth);
-      setCurrentSection(Math.min(currentSec, totalSections - 1));
-    };
-
-    updateSections();
-    window.addEventListener('resize', updateSections);
-    
-    const container = scrollRef.current;
-    if (container) {
-      container.addEventListener('scroll', handleScroll);
-    }
-
-    return () => {
-      window.removeEventListener('resize', updateSections);
-      if (container) {
-        container.removeEventListener('scroll', handleScroll);
-      }
-    };
-  }, [totalSections]);
-
-  // Auto scroll functionality
-  useEffect(() => {
-    if (isPaused) return;
-    
-    const interval = setInterval(() => {
-      if (!isDragging.current && scrollRef.current) {
-        const container = scrollRef.current;
-        if (container.scrollLeft + container.offsetWidth >= container.scrollWidth - 1) {
-          container.scrollTo({ left: 0, behavior: "smooth" });
-        } else {
-          container.scrollBy({ left: 220, behavior: "smooth" });
-        }
-      }
-    }, 3000);
-    
-    return () => clearInterval(interval);
-  }, [isPaused]);
-
-  // Navigate to specific section
-  const navigateToSection = (sectionIndex: number) => {
-    const container = scrollRef.current;
-    if (!container) return;
-
-    const cardWidth = 256;
-    const gap = 24;
-    const cardsPerView = Math.floor(container.offsetWidth / (cardWidth + gap));
-    const targetScrollLeft = sectionIndex * cardsPerView * (cardWidth + gap);
-    
-    container.scrollTo({ left: targetScrollLeft, behavior: "smooth" });
-    setCurrentSection(sectionIndex);
-  };
-
-  const duplicatedPartners = [...partnersData, ...partnersData];
+  // No complex scroll logic needed for grid layout
 
   return (
     <section 
@@ -234,48 +79,37 @@ const AssociatedWithSection = () => {
           </p>
         </div>
 
-        <div 
-          className="relative overflow-hidden mb-12"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
-          <div 
-            ref={scrollRef}
-            className="flex gap-6 overflow-x-auto pb-4 cursor-grab select-none scroll-smooth [&::-webkit-scrollbar]:hidden"
-            style={{ 
-              scrollbarWidth: "none",
-              msOverflowStyle: "none"
-            }}
-          >
-            {duplicatedPartners.map((partner, index) => (
-              <div
-                key={`${partner.name}-${index}`}
-                className={`relative flex-shrink-0 w-48 h-32 md:w-56 md:h-36 lg:w-64 lg:h-40 bg-card rounded-xl border-2 border-border/50 transition-all duration-500 hover:scale-105 hover:shadow-xl group overflow-hidden ${
-                  isVisible ? 'animate-fade-in' : ''
-                }`}
-                style={{ animationDelay: `${(index % 9) * 100}ms` }}
-              >
-                {/* Background gradient on hover */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                
-                <div className="flex items-center justify-center h-full p-4 relative z-10">
-                  <div className={`flex items-center justify-center ${
-                    ['Google Partner', 'Microsoft Partner', 'AWS Partner', 'HP'].includes(partner.name) ? 'h-24' : 'h-20'
-                  }`}>
-                    <img 
-                      src={partner.logo} 
-                      alt={partner.alt}
-                      className="max-w-full max-h-full object-contain filter brightness-90 group-hover:brightness-100 transition-all duration-300"
-                      loading="lazy"
-                    />
-                  </div>
+        <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mb-12 transition-all duration-700 delay-500 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}>
+          {partnersData.map((partner, index) => (
+            <div
+              key={partner.name}
+              className={`relative w-full h-32 md:h-36 lg:h-40 bg-card rounded-xl border-2 border-border/50 transition-all duration-500 hover:scale-105 hover:shadow-xl group overflow-hidden ${
+                isVisible ? 'animate-fade-in' : ''
+              }`}
+              style={{ animationDelay: `${index * 100}ms` }}
+            >
+              {/* Background gradient on hover */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              
+              <div className="flex items-center justify-center h-full p-4 relative z-10">
+                <div className={`flex items-center justify-center ${
+                  ['Google Partner', 'Microsoft Partner', 'AWS Partner', 'HP'].includes(partner.name) ? 'h-24' : 'h-20'
+                }`}>
+                  <img 
+                    src={partner.logo} 
+                    alt={partner.alt}
+                    className="max-w-full max-h-full object-contain filter brightness-90 group-hover:brightness-100 transition-all duration-300"
+                    loading="lazy"
+                  />
                 </div>
-
-                {/* Hover overlay */}
-                <div className="absolute inset-0 rounded-xl bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
-            ))}
-          </div>
+
+              {/* Hover overlay */}
+              <div className="absolute inset-0 rounded-xl bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </div>
+          ))}
         </div>
 
         {/* Optional subtitle */}
