@@ -21,6 +21,18 @@ import CustomSoftware from "./pages/CustomSoftware";
 import Ecommerce from "./pages/Ecommerce";
 import Blog from "./pages/Blog";
 import Careers from "./pages/Careers";
+
+// Cloud Infrastructure Pages
+import GoogleWorkspace from "./pages/GoogleWorkspace";
+import GoogleWorkspaceEducation from "./pages/GoogleWorkspaceEducation";
+import ZohoWorkplace from "./pages/ZohoWorkplace";
+import Microsoft365 from "./pages/Microsoft365";
+import GoogleCloudPlatform from "./pages/GoogleCloudPlatform";
+import AmazonWebServices from "./pages/AmazonWebServices";
+import MicrosoftAzure from "./pages/MicrosoftAzure";
+import SsoCloudDlp from "./pages/SsoCloudDlp";
+import McafeeAntivirus from "./pages/McafeeAntivirus";
+import CloudBackup from "./pages/CloudBackup";
  
 
 import OffshoreStaffing from "./pages/staffing/OffshoreStaffing";
@@ -58,6 +70,23 @@ const App = () => (
           <Route path="/cloud-strategy" element={<CloudStrategy />} />
           <Route path="/data-migration" element={<DataMigration />} />
           <Route path="/managed-services" element={<ManagedServices />} />
+          
+          {/* Cloud Infrastructure Email Solutions */}
+          <Route path="/google-workspace" element={<GoogleWorkspace />} />
+          <Route path="/google-workspace-education" element={<GoogleWorkspaceEducation />} />
+          <Route path="/zoho-workplace" element={<ZohoWorkplace />} />
+          <Route path="/microsoft-365" element={<Microsoft365 />} />
+          
+          {/* Cloud Platforms */}
+          <Route path="/google-cloud-platform" element={<GoogleCloudPlatform />} />
+          <Route path="/amazon-web-services" element={<AmazonWebServices />} />
+          <Route path="/microsoft-azure" element={<MicrosoftAzure />} />
+          
+          {/* Security & Backup Solutions */}
+          <Route path="/sso-cloud-dlp" element={<SsoCloudDlp />} />
+          <Route path="/mcafee-antivirus" element={<McafeeAntivirus />} />
+          <Route path="/cloud-backup" element={<CloudBackup />} />
+          
           <Route path="/it-services" element={<ITServices />} />
 
           {/* Staffing Hub & Services */}

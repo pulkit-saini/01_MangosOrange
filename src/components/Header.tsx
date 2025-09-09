@@ -21,7 +21,12 @@ const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const isITActive = ['/it-services','/web-development','/app-development','/open-source','/custom-software','/ecommerce'].some(p => location.pathname.startsWith(p));
-  const isCloudActive = ['/cloud-strategy','/data-migration','/managed-services'].some(p => location.pathname.startsWith(p));
+  const isCloudActive = [
+    '/cloud-strategy','/data-migration','/managed-services','/google-workspace',
+    '/google-workspace-education','/zoho-workplace','/microsoft-365',
+    '/google-cloud-platform','/amazon-web-services','/microsoft-azure',
+    '/sso-cloud-dlp','/mcafee-antivirus','/cloud-backup'
+  ].some(p => location.pathname.startsWith(p));
 
   useEffect(() => {
     const handleScroll = () => {
@@ -138,35 +143,73 @@ const Header = () => {
                     Cloud Infrastructure
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <div className="grid w-[350px] gap-3 p-6 bg-background/95 backdrop-blur-md border border-border/50 rounded-xl shadow-xl">
-                      <div className="mb-4">
-                        <h4 className="text-lg font-semibold text-foreground mb-2">Cloud Infrastructure</h4>
-                        <p className="text-sm text-gray-800">Enterprise cloud solutions and management</p>
+                    <div className="grid w-[800px] grid-cols-4 gap-6 p-6 bg-background/95 backdrop-blur-md border border-border/50 rounded-xl shadow-xl">
+                      {/* Cloud Email Solutions */}
+                      <div>
+                        <h4 className="text-sm font-semibold text-primary mb-3 uppercase tracking-wide">Cloud Email Solutions</h4>
+                        <div className="space-y-1">
+                          <Link to="/google-workspace" className="block text-sm text-foreground hover:text-primary transition-colors py-1.5 font-medium">
+                            Google Workspace For Business
+                          </Link>
+                          <Link to="/google-workspace-education" className="block text-sm text-foreground hover:text-primary transition-colors py-1.5 font-medium">
+                            Google Workspace For Education
+                          </Link>
+                          <Link to="/zoho-workplace" className="block text-sm text-foreground hover:text-primary transition-colors py-1.5 font-medium">
+                            Zoho Workplace
+                          </Link>
+                          <Link to="/microsoft-365" className="block text-sm text-foreground hover:text-primary transition-colors py-1.5 font-medium">
+                            Microsoft Office 365
+                          </Link>
+                        </div>
                       </div>
-                      <Link to="/cloud-strategy">
-                        <NavigationMenuLink className="block select-none space-y-1 rounded-lg p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary group">
-                          <div className="text-sm font-medium leading-none group-hover:translate-x-1 transition-transform duration-300">Cloud Strategy & Consulting</div>
-                          <p className="line-clamp-2 text-sm leading-snug text-gray-800">
-                            Strategic planning and consulting for cloud adoption
-                          </p>
-                        </NavigationMenuLink>
-                      </Link>
-                      <Link to="/data-migration">
-                        <NavigationMenuLink className="block select-none space-y-1 rounded-lg p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary group">
-                          <div className="text-sm font-medium leading-none group-hover:translate-x-1 transition-transform duration-300">Data Migration Services</div>
-                          <p className="line-clamp-2 text-sm leading-snug text-gray-800">
-                            Seamless migration of data to cloud platforms
-                          </p>
-                        </NavigationMenuLink>
-                      </Link>
-                      <Link to="/managed-services">
-                        <NavigationMenuLink className="block select-none space-y-1 rounded-lg p-3 leading-none no-underline outline-none transition-all duration-300 hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary group">
-                          <div className="text-sm font-medium leading-none group-hover:translate-x-1 transition-transform duration-300">Managed Services</div>
-                          <p className="line-clamp-2 text-sm leading-snug text-gray-800">
-                            Complete cloud infrastructure management and support
-                          </p>
-                        </NavigationMenuLink>
-                      </Link>
+
+                      {/* Cloud Platforms */}
+                      <div>
+                        <h4 className="text-sm font-semibold text-primary mb-3 uppercase tracking-wide">Cloud Platforms</h4>
+                        <div className="space-y-1">
+                          <Link to="/google-cloud-platform" className="block text-sm text-foreground hover:text-primary transition-colors py-1.5 font-medium">
+                            Google Cloud Platform (GCP)
+                          </Link>
+                          <Link to="/amazon-web-services" className="block text-sm text-foreground hover:text-primary transition-colors py-1.5 font-medium">
+                            Amazon Web Services (AWS)
+                          </Link>
+                          <Link to="/microsoft-azure" className="block text-sm text-foreground hover:text-primary transition-colors py-1.5 font-medium">
+                            Microsoft Azure
+                          </Link>
+                        </div>
+                      </div>
+
+                      {/* Security & Backup Solutions */}
+                      <div>
+                        <h4 className="text-sm font-semibold text-primary mb-3 uppercase tracking-wide">Security & Backup Solutions</h4>
+                        <div className="space-y-1">
+                          <Link to="/sso-cloud-dlp" className="block text-sm text-foreground hover:text-primary transition-colors py-1.5 font-medium">
+                            SSO & Cloud DLP Solutions
+                          </Link>
+                          <Link to="/mcafee-antivirus" className="block text-sm text-foreground hover:text-primary transition-colors py-1.5 font-medium">
+                            McAfee Antivirus
+                          </Link>
+                          <Link to="/cloud-backup" className="block text-sm text-foreground hover:text-primary transition-colors py-1.5 font-medium">
+                            Cloud Backup Services
+                          </Link>
+                        </div>
+                      </div>
+
+                      {/* Other Solutions */}
+                      <div>
+                        <h4 className="text-sm font-semibold text-primary mb-3 uppercase tracking-wide">Other Solutions</h4>
+                        <div className="space-y-1">
+                          <Link to="/managed-services" className="block text-sm text-foreground hover:text-primary transition-colors py-1.5 font-medium">
+                            Cloud Managed Services
+                          </Link>
+                          <Link to="/data-migration" className="block text-sm text-foreground hover:text-primary transition-colors py-1.5 font-medium">
+                            Data Migration Services
+                          </Link>
+                          <Link to="/cloud-strategy" className="block text-sm text-foreground hover:text-primary transition-colors py-1.5 font-medium">
+                            Cloud Strategy & Consulting
+                          </Link>
+                        </div>
+                      </div>
                     </div>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
@@ -239,9 +282,31 @@ const Header = () => {
             <div className="space-y-3">
               <div className="text-sm font-semibold text-primary uppercase tracking-wide">Cloud Infrastructure</div>
               <div className="pl-3 sm:pl-4 space-y-2 border-l-2 border-primary/20">
-                <Link to="/cloud-strategy" className="block text-foreground hover:text-primary transition-colors py-1.5 text-sm" onClick={() => setIsMenuOpen(false)}>Cloud Strategy & Consulting</Link>
-                <Link to="/data-migration" className="block text-foreground hover:text-primary transition-colors py-1.5 text-sm" onClick={() => setIsMenuOpen(false)}>Data Migration Services</Link>
-                <Link to="/managed-services" className="block text-foreground hover:text-primary transition-colors py-1.5 text-sm" onClick={() => setIsMenuOpen(false)}>Managed Services</Link>
+                <div className="space-y-2">
+                  <div className="text-xs font-medium text-gray-600 uppercase tracking-wider">Email Solutions</div>
+                  <Link to="/google-workspace" className="block text-foreground hover:text-primary transition-colors py-1 text-sm" onClick={() => setIsMenuOpen(false)}>Google Workspace Business</Link>
+                  <Link to="/google-workspace-education" className="block text-foreground hover:text-primary transition-colors py-1 text-sm" onClick={() => setIsMenuOpen(false)}>Google Workspace Education</Link>
+                  <Link to="/zoho-workplace" className="block text-foreground hover:text-primary transition-colors py-1 text-sm" onClick={() => setIsMenuOpen(false)}>Zoho Workplace</Link>
+                  <Link to="/microsoft-365" className="block text-foreground hover:text-primary transition-colors py-1 text-sm" onClick={() => setIsMenuOpen(false)}>Microsoft Office 365</Link>
+                </div>
+                <div className="space-y-2 pt-2">
+                  <div className="text-xs font-medium text-gray-600 uppercase tracking-wider">Cloud Platforms</div>
+                  <Link to="/google-cloud-platform" className="block text-foreground hover:text-primary transition-colors py-1 text-sm" onClick={() => setIsMenuOpen(false)}>Google Cloud Platform</Link>
+                  <Link to="/amazon-web-services" className="block text-foreground hover:text-primary transition-colors py-1 text-sm" onClick={() => setIsMenuOpen(false)}>Amazon Web Services</Link>
+                  <Link to="/microsoft-azure" className="block text-foreground hover:text-primary transition-colors py-1 text-sm" onClick={() => setIsMenuOpen(false)}>Microsoft Azure</Link>
+                </div>
+                <div className="space-y-2 pt-2">
+                  <div className="text-xs font-medium text-gray-600 uppercase tracking-wider">Security & Backup</div>
+                  <Link to="/sso-cloud-dlp" className="block text-foreground hover:text-primary transition-colors py-1 text-sm" onClick={() => setIsMenuOpen(false)}>SSO & Cloud DLP</Link>
+                  <Link to="/mcafee-antivirus" className="block text-foreground hover:text-primary transition-colors py-1 text-sm" onClick={() => setIsMenuOpen(false)}>McAfee Antivirus</Link>
+                  <Link to="/cloud-backup" className="block text-foreground hover:text-primary transition-colors py-1 text-sm" onClick={() => setIsMenuOpen(false)}>Cloud Backup</Link>
+                </div>
+                <div className="space-y-2 pt-2">
+                  <div className="text-xs font-medium text-gray-600 uppercase tracking-wider">Other Services</div>
+                  <Link to="/cloud-strategy" className="block text-foreground hover:text-primary transition-colors py-1 text-sm" onClick={() => setIsMenuOpen(false)}>Cloud Strategy & Consulting</Link>
+                  <Link to="/data-migration" className="block text-foreground hover:text-primary transition-colors py-1 text-sm" onClick={() => setIsMenuOpen(false)}>Data Migration Services</Link>
+                  <Link to="/managed-services" className="block text-foreground hover:text-primary transition-colors py-1 text-sm" onClick={() => setIsMenuOpen(false)}>Managed Services</Link>
+                </div>
               </div>
             </div>
             
